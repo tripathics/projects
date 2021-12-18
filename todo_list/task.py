@@ -8,11 +8,10 @@ import os
 csv_header = ['Name', 'Priority', 'Done']
 
 class Tasks:
-
+    pending = []
+    completed = []
     # Initialize the list of tasks
-    def __init__(self, pending: list, completed: list, data_file: str):
-        self.pending = pending
-        self.completed = completed
+    def __init__(self, data_file: str):
         self.data_file = data_file
 
 
@@ -43,7 +42,7 @@ class Tasks:
     
     # Add a task to the list of Tasks
     def add_task(self, name: str, priority: int, done: int):
-        new_task = {'Name': name, 'Priority': int(priority), 'Done': done}
+        new_task = {'Name': name, 'Priority': priority, 'Done': done}
 
         if new_task not in self.pending:
             for i,task in zip(range(len(self.pending)), self.pending):
@@ -164,7 +163,7 @@ $ ./task report               # Statistics"""
         return
         
     # Create a Tasks object
-    myTasks = Tasks(pending=[], completed=[], data_file='./task_database.csv')
+    myTasks = Tasks(data_file='./task_database.csv')
 
     # load tasks from file
     myTasks.load()
@@ -173,7 +172,7 @@ $ ./task report               # Statistics"""
     if (len(sys.argv) >= 2):
         if sys.argv[1] == 'add':
             if len(sys.argv) == 4:
-                myTasks.add_task(priority=sys.argv[2], name=sys.argv[3], done=0)
+                myTasks.add_task(priority=int(sys.argv[2]), name=sys.argv[3], done=0)
             else:
                 print('Error: Missing tasks string. Nothing added!')
         elif sys.argv[1] == 'ls':

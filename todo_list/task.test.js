@@ -87,9 +87,9 @@ test("list tasks in order of priority", () => {
 });
 
 test("list when there are no remaining tasks", () => {
-  // [1, 1, 1].forEach(i =>
-  //   execSync(tasksTxtCli("del", `${i}`))
-  // );
+  [1, 1, 1].forEach(i =>
+    execSync(tasksTxtCli("del", `${i}`))
+  );
   let expected = `There are no pending tasks!`;
   let received = execSync(tasksTxtCli("ls")).toString("utf8");
 
